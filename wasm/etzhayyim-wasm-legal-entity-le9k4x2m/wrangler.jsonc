@@ -1,0 +1,40 @@
+{
+  "name": "kotodama-le9k4x2m",
+  "main": "svelte/.svelte-kit/cloudflare/_worker.js",
+  "compatibility_date": "2025-03-17",
+  "compatibility_flags": [
+    "nodejs_compat",
+    "nodejs_als"
+  ],
+  "vars": {
+    "APP_CAPABILITIES": "[\"gleif-lei-ingest\",\"corporate-registry\",\"legal-entity-search\",\"multi-country-ingest\",\"entity-resolution\"]",
+    "APP_DESCRIPTION": "Global corporate registry data collector — 194+ countries. GLEIF LEI, JP NTA, UK CH, FR SIRENE, BR CNPJ, NO/DK/FI/EE Nordic, BE KBO, CZ ARES, NZ/AU/ZA, US SEC EDGAR, CA ISED, CH Zefix, NL KVK, IL Rasham, OpenCorporates.",
+    "APP_DISPLAY_NAME": "etzhayyim Legal Entity Collector",
+    "APP_EMBED_URL": "https://le9k4x2m.etzhayyim.com/?embed=1",
+    "APP_FRAMEWORK": "sveltekit-edge-bff",
+    "APP_NANOID": "le9k4x2m",
+    "APP_PERFORMER_TYPE": "service",
+    "APP_UI_TYPE": "appview",
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message"
+  },
+  "rules": [
+    {
+      "type": "CompiledWasm",
+      "globs": [
+        "**/*.wasm"
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "pattern": "le9k4x2m.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
+    }
+  ],
+  "assets": {
+    "directory": "./svelte/.svelte-kit/cloudflare/client",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "none"
+  }
+}

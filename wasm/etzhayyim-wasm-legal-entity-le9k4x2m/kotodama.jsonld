@@ -1,0 +1,59 @@
+{
+  "@context": "https://etzhayyim.com/ns/kotodama/v1",
+  "@id": "did:web:legal-entity.etzhayyim.com",
+  "name": "le9k4x2m",
+  "nanoid": "le9k4x2m",
+  "performerType": "service",
+  "runtimeType": "worker",
+  "project": "legal-entity",
+  "convoSystemPrompt": "You are the Etzhayyim Legal Entity collector. You ingest corporate registry data from 194+ countries: GLEIF LEI, JP NTA, UK Companies House, FR SIRENE, BR CNPJ, NO Bronnøysund, DK CVR, FI PRH, EE e-Business, BE KBO, CZ ARES, NZ NZBN, AU ABR, US SEC EDGAR, CA ISED, ZA CIPC, CH Zefix, NL KVK, IL Rasham, and more via OpenCorporates. Respond helpfully in the user's language.",
+  "governance": {
+    "raci": "responsible",
+    "classification": "public",
+    "complianceFrameworks": ["etzhayyim-legal-entity-policy"]
+  },
+  "profile": {
+    "displayName": "Etzhayyim Legal Entity Collector",
+    "description": "Global corporate registry data collector — 194+ countries. GLEIF LEI, JP NTA, UK CH, FR SIRENE, BR CNPJ, NO/DK/FI/EE Nordic, BE KBO, CZ ARES, NZ/AU/ZA, US SEC EDGAR, CA ISED, CH Zefix, NL KVK, IL Rasham, OpenCorporates.",
+    "avatar": "LE",
+    "category": "data-intelligence",
+    "isBot": true,
+    "operator": "etzhayyim.com",
+    "agentType": "autonomous",
+    "capabilities": [
+      "gleif-lei-ingest",
+      "corporate-registry",
+      "legal-entity-search",
+      "multi-country-ingest",
+      "entity-resolution"
+    ]
+  },
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "com.etzhayyim.legalEntity.legalEntity",
+        "com.etzhayyim.legalEntity.companyFiling",
+        "com.etzhayyim.legalEntity.companyFact",
+        "com.etzhayyim.legalEntity.entityOwnership",
+        "com.etzhayyim.legalEntity.entityTradeRelationship",
+        "com.etzhayyim.legalEntity.publicStatement",
+        "com.etzhayyim.legalEntity.entityMention",
+        "com.etzhayyim.legalEntity.entityRelation"
+      ]
+    }
+  },
+  "space": {
+    "name": "Legal Entity Intelligence",
+    "description": "Global corporate registry data feed",
+    "joinRule": "public",
+    "historyVisibility": "world-readable",
+    "convos": [
+      {
+        "name": "le-feed",
+        "kind": "public",
+        "description": "New legal entity registrations and updates",
+        "default": true
+      }
+    ]
+  }
+}
