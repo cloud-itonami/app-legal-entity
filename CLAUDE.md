@@ -4,12 +4,32 @@
 
 ## Runtime
 
-**TS Native + Lexicon Contract。** Business logic: `wasm/etzhayyim-wasm-legal-entity-le9k4x2m/src/app.ts`。
+> **⚠ 2026-08-18 訂正（appview の cljs 移行）。** この節は以前
+> 「Language: TypeScript / Build: `app.ts` が直接 wrangler entrypoint」と書いて
+> いた。**どちらも当時から事実ではなかった** —— `wrangler.jsonc` の `main` は
+> `svelte/.svelte-kit/cloudflare/_worker.js`（SvelteKit のビルド出力）を指して
+> おり、`src/app.ts` はどの wrangler config からも参照されていなかった。
+> 移行でその `src/app.ts` と Svelte 一式は撤去された（`docs/adr/0001`）。
+>
+> **この repo の edge は ClojureScript である。** 下の表は書き換えてある。
+
+**この repo の appview（薄い edge）の runtime。** Business logic:
+`src/legal_entity/{route.cljc, view.cljc, worker.cljs}` →
+shadow-cljs `:target :esm` → `dist/worker.js`。
 
 | 項目 | 値 |
 |---|---|
-| Language | TypeScript (`@etzhayyim/kotodama-host-sdk` host, TS Native) |
-| Build | `etzhayyim deploy` (app.ts が直接 wrangler entrypoint) |
+| Language | ClojureScript（判断は `.cljc`、Request/Response に触るのは `worker.cljs` だけ） |
+| Build | `shadow-cljs release worker` → `dist/worker.js`（`wasm/…/wrangler.jsonc` の `main` が指す先） |
+| Architecture | 薄い edge。`/xrpc/:nsid` を MCP router へ中継するだけで、業務ロジックは持たない |
+
+**以下 3 行が記述するのは、この repo に実装ファイルが 1 つも無い
+「dispatcher 側」のシステムである**（`SUBSTRATE-PORT-PENDING.md` §6 と
+`README.md` 冒頭が同じことを書いている）。設計の正本としては読んでよいが、
+**この repo の中身の説明として読むと必ず間違える。**
+
+| 項目 | 値 |
+|---|---|
 | Architecture | AT Protocol commit pipeline (`com.atproto.repo.applyWrites` batch) |
 | Write | repo record upsert / `com.atproto.repo.applyWrites` → PDS → sign → kagamiWrite → typed vertex / edge tables |
 | Read | `createKyselyDb()` → `vertex_legal_entity` / disclosure vertex / relation edge tables (Hyperdrive → RisingWave) |
