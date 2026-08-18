@@ -1,0 +1,22 @@
+# shadow-cljs のビルド出力。wrangler.jsonc の main が指す先（../../dist/worker.js）
+# だが、生成物なので commit しない（scripts/smoke-worker.cljs は「ビルドしてから」
+# 実行する gate で、bundle が無ければ exit 2 = 判定できなかった、を返す）。
+dist/
+.shadow-cljs/
+node_modules/
+.cpcache/
+
+# wrangler dev (--local) が置く workerd のキャッシュ。docs/operator-quickstart.md
+# §6 の検証を踏むと現れる生成物で、tree の一部ではない。
+.wrangler/
+
+# kotoba/ の install が残す生成物。移行前は .gitignore が無かったので、
+# docs/operator-quickstart.md §A-1 を踏むと未追跡ファイルとして残っていた
+# （旧 README §6 が「直していないこと」として挙げていた 1 件）。
+kotoba/node_modules/
+kotoba/package-lock.json
+
+# lg-clj/ の bb / clojure が残す生成物。
+lg-clj/.cpcache/
+.clj-kondo/
+.lsp/

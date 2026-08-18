@@ -1,40 +1,41 @@
 {
   "name": "kotodama-le9k4x2m",
-  "main": "svelte/.svelte-kit/cloudflare/_worker.js",
+  // Compiled from src/legal_entity/worker.cljs by shadow-cljs (:target :esm).
+  // The path is ../../dist/worker.js because the appview's DEPLOY unit stays here
+  // (this directory) while the source and build config live at the repo root --
+  // the repo holds three independent subtrees with three build roots, and this is
+  // the one wrangler owns. See deps.edn and README S1.
+  //
+  // Before the cljs migration this pointed at svelte/.svelte-kit/cloudflare/_worker.js
+  // -- a build output absent from the tree -- while src/app.ts, the file that read
+  // like the application, was referenced by no wrangler config at all. See docs/adr/0001.
+  "main": "../../dist/worker.js",
   "compatibility_date": "2025-03-17",
-  "compatibility_flags": [
-    "nodejs_compat",
-    "nodejs_als"
-  ],
+  // nodejs_compat / nodejs_als are GONE. They were @sveltejs/adapter-cloudflare's
+  // requirement; the :esm bundle reaches for no node builtin. Removed only after
+  // running the built bundle under workerd (`wrangler dev --local`) with the flags
+  // already absent and hitting every route -- see docs/operator-quickstart.md S6.
+  //
+  // The "rules" CompiledWasm block is gone too: it globbed **/*.wasm in a tree with
+  // zero .wasm files (measured -- the directory is NAMED wasm/, which is what made
+  // the block look load-bearing). The "assets" block is gone because the directory
+  // it served (./svelte/.svelte-kit/cloudflare/client) no longer exists -- and never
+  // existed in the tree, only in a build output.
   "vars": {
     "APP_CAPABILITIES": "[\"gleif-lei-ingest\",\"corporate-registry\",\"legal-entity-search\",\"multi-country-ingest\",\"entity-resolution\"]",
     "APP_DESCRIPTION": "Global corporate registry data collector — 194+ countries. GLEIF LEI, JP NTA, UK CH, FR SIRENE, BR CNPJ, NO/DK/FI/EE Nordic, BE KBO, CZ ARES, NZ/AU/ZA, US SEC EDGAR, CA ISED, CH Zefix, NL KVK, IL Rasham, OpenCorporates.",
     "APP_DISPLAY_NAME": "etzhayyim Legal Entity Collector",
     "APP_EMBED_URL": "https://le9k4x2m.etzhayyim.com/?embed=1",
-    "APP_FRAMEWORK": "sveltekit-edge-bff",
+    "APP_FRAMEWORK": "cljs-esm-worker",
     "APP_NANOID": "le9k4x2m",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "appview",
     "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message"
   },
-  "rules": [
-    {
-      "type": "CompiledWasm",
-      "globs": [
-        "**/*.wasm"
-      ]
-    }
-  ],
   "routes": [
     {
       "pattern": "le9k4x2m.etzhayyim.com/*",
       "zone_name": "etzhayyim.com"
     }
-  ],
-  "assets": {
-    "directory": "./svelte/.svelte-kit/cloudflare/client",
-    "binding": "ASSETS",
-    "html_handling": "auto-trailing-slash",
-    "not_found_handling": "none"
-  }
+  ]
 }

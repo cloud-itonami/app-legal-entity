@@ -1,0 +1,44 @@
+;; app-legal-entity — the legal-entity appview.
+;;
+;; ⚠ **これは repo 全体のビルド設定ではない。** この repo は 3 つの独立した
+;; サブツリーを持ち、それぞれ自分のビルド根を持つ（README §1）:
+;;
+;;   wasm/…-le9k4x2m/  appview（Cloudflare Worker）  ← ここ。ソースは src/、
+;;                                                     設定は repo 直下のこの 2 ファイル
+;;   kotoba/           TypeScript の登記レジストリ   ← kotoba/package.json + tsc/vitest
+;;   lg-clj/           LangGraph の Clojure 移植     ← lg-clj/bb.edn + bb
+;;
+;; appview の wrangler.jsonc だけがサブディレクトリに残り（deploy 単位なので）、
+;; ソースとビルド設定は repo 直下に置いた。同型移行の app-ongakuka / app-lo /
+;; app-po / app-cowork / app-analytics が全く同じ形（`appview/<name>/wrangler.jsonc`
+;; + 直下の `src/` `shadow-cljs.edn` `deps.edn`）なので、それに合わせている。
+;; したがって wrangler の `main` は `../../dist/worker.js` である。
+;;
+;; The Worker is ClojureScript, per the repo-wide runtime order in the
+;; superproject CLAUDE.md (kotoba wasm > clojurewasm > ClojureScript > nbb).
+;; Keeping the entry in cljs rather than .kotoba is ADR-2606290000's standing
+;; call: kotoba's ingress capability is :native-aot/:wasm-aot pending. The
+;; decision-shaped parts live in .cljc so they are testable without a browser,
+;; and are the first thing that moves to .kotoba when ingress qualifies.
+;;
+;; The design system is pinned to the tip of kotoba-lang/jp-go-digital-design-system
+;; as measured 2026-08-18: 2e2d191 is BOTH the remote HEAD and the commit the shared
+;; west checkout on this workstation is sitting on, with a clean working tree. So the
+;; library the tests run against (which comes off the west checkout via --classpath)
+;; and the library the bundle links (which comes off this git dep) are the same
+;; bytes. That coincidence is recorded here because it does NOT always hold — the
+;; app-air-cargo migration on the same day found the west checkout six days behind
+;; the pin and had to run its render against an extraction of the pinned sha instead.
+;; If you touch this pin, re-measure rather than assuming.
+{:paths ["src"]
+ :deps {io.github.kotoba-lang/jp-go-digital-design-system
+        {:git/url "https://github.com/kotoba-lang/jp-go-digital-design-system"
+         :git/sha "2e2d191e9e1731ce6865c79dab163a5d74249053"}}
+ :aliases
+ {:cljs {:extra-deps {org.clojure/clojurescript {:mvn/version "1.11.132"}
+                      thheller/shadow-cljs {:mvn/version "2.28.20"}}}
+  :test {:extra-paths ["test"]
+         :extra-deps {io.github.cognitect-labs/test-runner
+                      {:git/tag "v0.5.1" :git/sha "dfb30dd"}}
+         :main-opts ["-m" "cognitect.test-runner"]
+         :exec-fn cognitect.test-runner.api/test}}}

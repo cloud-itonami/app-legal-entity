@@ -1,1 +1,62 @@
-{:schema "etzhayyim.migration/v1" :source {:repository "etzhayyim/root" :revision "e5654f08638e1785f519566582bb3c4dc7719f45" :path "60-apps/etzhayyim-project-legal-entity" :tree "5e136c4aa70020b2d85bb6b967d1a7933d939116" :tracked-files 26 :bytes 72373} :destination {:repository "cloud-itonami/app-legal-entity"} :identity {:allowed-additions ["README.edn" "migration.edn"]}}
+{:schema "etzhayyim.migration/v1"
+ :source {:repository "etzhayyim/root"
+          :revision "e5654f08638e1785f519566582bb3c4dc7719f45"
+          :path "60-apps/etzhayyim-project-legal-entity"
+          :tree "5e136c4aa70020b2d85bb6b967d1a7933d939116"
+          :tracked-files 26
+          :bytes 72373}
+ :destination {:repository "cloud-itonami/app-legal-entity"}
+ :identity
+ {;; 切り出し時の 2 件に加え、その後に足したものを **すべて** 登録する。
+  ;; 移行前はここが 2 件のままで、README.md と docs/operator-quickstart.md が
+  ;; 未登録の追加として浮いていた（旧 README §1 が自分でそう書いている）。
+  ;; 登録しておかないと、検証器は「意図した追加」と「勝手に増えたファイル」を
+  ;; 区別できない。
+  :allowed-additions
+  ["README.edn" "migration.edn"
+   ;; 2026-08-17 の文書化ラウンドで足したもの（当時未登録だった）
+   "README.md" "docs/operator-quickstart.md"
+   ;; 2026-08-18 の cljs 移行で足したもの
+   ".gitignore" "deps.edn" "shadow-cljs.edn"
+   "docs/adr/0001-migrate-the-appview-from-typescript-to-clojurescript.edn"
+   "src/legal_entity/route.cljc"
+   "src/legal_entity/view.cljc"
+   "src/legal_entity/worker.cljs"
+   "test/legal_entity/route_test.cljc"
+   "scripts/smoke-worker.cljs"
+   "scripts/verify-docs-claims.cljs"]
+
+  ;; 移行が撤去した 9 パス（288 行）。**名前で**残す —— byte 合計は
+  ;; 「TypeScript と Svelte が消えた」を言えないが、この列挙は言える。
+  ;; scripts/verify-docs-claims.cljs がこの 9 件の不在を検査する。
+  :removed-by-migration
+  ["wasm/etzhayyim-wasm-legal-entity-le9k4x2m/package.json"
+   "wasm/etzhayyim-wasm-legal-entity-le9k4x2m/src/app.ts"
+   "wasm/etzhayyim-wasm-legal-entity-le9k4x2m/svelte/package.json"
+   "wasm/etzhayyim-wasm-legal-entity-le9k4x2m/svelte/src/app.html"
+   "wasm/etzhayyim-wasm-legal-entity-le9k4x2m/svelte/src/routes/+page.svelte"
+   "wasm/etzhayyim-wasm-legal-entity-le9k4x2m/svelte/src/routes/xrpc/[...path]/+server.ts"
+   "wasm/etzhayyim-wasm-legal-entity-le9k4x2m/svelte/svelte.config.js"
+   "wasm/etzhayyim-wasm-legal-entity-le9k4x2m/svelte/tsconfig.json"
+   "wasm/etzhayyim-wasm-legal-entity-le9k4x2m/svelte/vite.config.ts"]
+
+  ;; **appview ではないので撤去しなかったもの。** 移行が消したのは appview の
+  ;; TypeScript と Svelte であって、この repo の TypeScript 全部ではない。
+  ;; kotoba/ は appview が一度も import していない domain library で、どの
+  ;; bundle にも入らないが「死んで」はいない —— 固定した依存 2 本は解決し、
+  ;; テストは通る。lg-clj/ も同様に別系統（LangGraph サーバの Clojure 移植）。
+  ;; 消すのは移行ではなく破壊なので残し、**hash で固定**して黙って増えも
+  ;; 腐りもしないようにした。
+  :kept-not-the-appview
+  {:kotoba {:paths ["kotoba/package.json" "kotoba/src/index.ts" "kotoba/src/registry.ts"
+                    "kotoba/src/types.ts" "kotoba/test/legal-entity.test.ts"
+                    "kotoba/tsconfig.json" "kotoba/vitest.config.ts"]
+            :files 7 :bytes 25274
+            :why "AT PDS 上の登記レジストリ 9 関数。appview から参照されない別系統"}
+   :lg-clj {:paths ["lg-clj/bb.edn" "lg-clj/run_tests.clj"
+                    "lg-clj/src/lg_legal_entity/graphs/health.cljc"
+                    "lg-clj/src/lg_legal_entity/graphs/task.cljc"
+                    "lg-clj/src/lg_legal_entity/server.cljc"
+                    "lg-clj/test/lg_legal_entity/smoke_test.cljc"]
+            :files 6 :bytes 14846
+            :why "Python LangGraph サーバの Clojure 移植。17 StateGraph。appview から参照されない"}}}}

@@ -1,0 +1,32 @@
+;; The legal-entity appview Worker. :esm, mirroring cloud-itonami-marketplace-listing,
+;; cloud-itonami/app-ongakuka, app-lo, app-po and app-air-cargo.
+;;
+;; wasm/etzhayyim-wasm-legal-entity-le9k4x2m/wrangler.jsonc's main points at
+;; ../../dist/worker.js, which is THIS bundle compiled from the source in src/.
+;; That is the whole point of the migration recorded in docs/adr/0001: before it,
+;; main pointed at svelte/.svelte-kit/cloudflare/_worker.js -- a build output absent
+;; from the tree -- while src/app.ts, the file that reads like the application, was
+;; referenced by no wrangler config at all.
+;;
+;; :warnings-as-errors is not decoration. shadow treats an undeclared or renamed
+;; var as a WARNING, so `shadow-cljs release worker` exits 0 while writing a bundle
+;; that misbehaves on its first request. "The build succeeded" is therefore not a
+;; check at all -- it cannot fail. Measured in cloud-itonami/app-cowork on
+;; 2026-08-18, landed in app-lo / app-ongakuka / app-air-cargo, and demonstrated in
+;; THIS repo before landing this line (docs/operator-quickstart.md S5).
+{:deps {:aliases [:cljs]}
+ :builds
+ {:worker
+  {:target :esm
+   :output-dir "dist"
+   :modules {:worker {:exports {default legal-entity.worker/handler}}}
+   ;; NOTE the key lives under :compiler-options, NOT :build-options -- shadow
+   ;; reads `[:compiler-options :warnings-as-errors]`
+   ;; (shadow/build/compiler.clj `should-warning-throw?`). Putting it under
+   ;; :build-options is silently ignored, which is the same failure this option
+   ;; exists to prevent: a fix that cannot fail. scripts/verify-docs-claims.cljs
+   ;; therefore reads this file as EDN and asserts the key's PATH, not its text --
+   ;; a grep would match this very comment.
+   :compiler-options {:output-feature-set :es2020
+                      :infer-externs :auto
+                      :warnings-as-errors true}}}}
