@@ -1,6 +1,6 @@
 (ns legal-entity.route-test
   (:require [clojure.test :refer [deftest is testing]]
-            [clojure.string :as str]
+            [kotoba.lang.text :as str]
             [legal-entity.route :as route]
             [legal-entity.view :as view]))
 
