@@ -19,7 +19,7 @@
          '["node:child_process" :as cp]
          '["node:crypto" :as crypto]
          '[cljs.reader :as edn]
-         '[clojure.string :as str])
+         '[kotoba.lang.text :as str])
 
 (def root (or (first (remove #(str/starts-with? % "--") *command-line-args*)) "."))
 (def APP "wasm/etzhayyim-wasm-legal-entity-le9k4x2m")
