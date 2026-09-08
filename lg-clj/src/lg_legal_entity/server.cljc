@@ -23,7 +23,7 @@
      Python /ok ({:ok true} only) / /health (raw health-graph result) split.
    * No RetryPolicy (langgraph-clj has none); the Python graphs declared none
      either, so topology parity is exact."
-  (:require [clojure.string :as str]
+  (:require [kotoba.lang.text :as str]
             [langgraph.graph :as g]
             [lg-legal-entity.graphs.health :as health]
             [lg-legal-entity.graphs.task :as task]))
