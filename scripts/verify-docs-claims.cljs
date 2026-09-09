@@ -25,7 +25,7 @@
 (def APP "wasm/etzhayyim-wasm-legal-entity-le9k4x2m")
 
 (def claims
-  {:tracked-files 31
+  {:tracked-files 32
    :inherited-bytes 2373           ; the 2 inherited files still carried byte-identical
    :appview-ts-files 0             ; TypeScript OUTSIDE kotoba/ -- see kept below
    :appview-svelte-files 0
