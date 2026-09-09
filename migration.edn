@@ -13,7 +13,7 @@
   ;; 登録しておかないと、検証器は「意図した追加」と「勝手に増えたファイル」を
   ;; 区別できない。
   :allowed-additions
-  ["README.edn" "migration.edn"
+  ["README.edn" "migration.edn" "nbb.edn"
    ;; 2026-08-17 の文書化ラウンドで足したもの（当時未登録だった）
    "README.md" "docs/operator-quickstart.md"
    ;; 2026-08-18 の cljs 移行で足したもの
