@@ -24,7 +24,7 @@
    ;; reads `[:compiler-options :warnings-as-errors]`
    ;; (shadow/build/compiler.clj `should-warning-throw?`). Putting it under
    ;; :build-options is silently ignored, which is the same failure this option
-   ;; exists to prevent: a fix that cannot fail. scripts/verify-docs-claims.cljs
+   ;; exists to prevent: a fix that cannot fail. scripts/verify-docs-claims.cljk
    ;; therefore reads this file as EDN and asserts the key's PATH, not its text --
    ;; a grep would match this very comment.
    :compiler-options {:output-feature-set :es2020

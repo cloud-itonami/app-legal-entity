@@ -19,14 +19,14 @@
 
 この README が書くのは設計ではなく、**いま実際に何が在って、何が動いて、
 何が壊れているか**である。手順は [`docs/operator-quickstart.md`](docs/operator-quickstart.md)。
-数値はすべて `scripts/verify-docs-claims.cljs` が tree から再計算して検査する。
+数値はすべて `scripts/verify-docs-claims.cljk` が tree から再計算して検査する。
 
 ## 1. appview — deploy されるものは、いま読んでいるソースである
 
 ```
-src/legal_entity/route.cljc    判断（どの handler が答えるか）  ← 純 .cljc、テスト対象
-src/legal_entity/view.cljc     ページ（jp-go-dds の hiccup）    ← 純 .cljc、テスト対象
-src/legal_entity/worker.cljs   Request/Response に触る唯一の層
+src/legal_entity/route.cljk    判断（どの handler が答えるか）  ← 純 .cljc、テスト対象
+src/legal_entity/view.cljk     ページ（jp-go-dds の hiccup）    ← 純 .cljc、テスト対象
+src/legal_entity/worker.cljk   Request/Response に触る唯一の層
         ↓ shadow-cljs :target :esm
 dist/worker.js                 ← wasm/…/wrangler.jsonc の "main" が指すもの
 ```
@@ -243,7 +243,7 @@ TypeScript が library のふりをして戻る）ことも、黙って腐るこ
 ## 8. 検証
 
 ```bash
-npx --yes nbb scripts/verify-docs-claims.cljs .   # <dir> は先頭に置く
+npx --yes nbb scripts/verify-docs-claims.cljk .   # <dir> は先頭に置く
 ```
 
 exit 0 = 全一致 / 1 = 食い違い / **2 = 判定できなかった**（0 と区別する）。

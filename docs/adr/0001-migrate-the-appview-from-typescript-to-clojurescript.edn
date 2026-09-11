@@ -46,9 +46,9 @@
 
 **appview を ClojureScript に移し、その TypeScript と Svelte を撤去する。**
 
-    src/legal_entity/route.cljc    判断（どの handler が答えるか）
-    src/legal_entity/view.cljc     ページ（jp-go-dds の hiccup）
-    src/legal_entity/worker.cljs   Request/Response に触る唯一の層
+    src/legal_entity/route.cljk    判断（どの handler が答えるか）
+    src/legal_entity/view.cljk     ページ（jp-go-dds の hiccup）
+    src/legal_entity/worker.cljk   Request/Response に触る唯一の層
             ↓ shadow-cljs :target :esm
     dist/worker.js                 wasm/…/wrangler.jsonc の main が指すもの
 
@@ -201,8 +201,8 @@ app-air-cargo は `/xrpc` も 400 にする。SvelteKit の `[...path]` が 0 �
   **12 軸すべて 100.00**
 - `shadow-cljs release worker`（resource guard 経由）: **55 files / 12 compiled /
   0 warnings / 8.61s**、`dist/worker.js` 256,241 バイト
-- `scripts/smoke-worker.cljs`: **47 checks 全 PASS**、exit 0
-- `scripts/verify-docs-claims.cljs`: **40 claims 全 PASS**、exit 0
+- `scripts/smoke-worker.cljk`: **47 checks 全 PASS**、exit 0
+- `scripts/verify-docs-claims.cljk`: **40 claims 全 PASS**、exit 0
 - **workerd（`wrangler dev --local`）で全ルート実走**: `/` 200 text/html 85,814 B・
   `/health` 200 JSON・`POST /xrpc/` 400・`POST /xrpc/a/b` 502（URL 付き）・
   `OPTIONS /xrpc/x` 204・`/nope` 404・`/_app/meta` 404・`POST /health` 405。

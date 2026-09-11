@@ -19,16 +19,16 @@
    ;; 2026-08-18 の cljs 移行で足したもの
    ".gitignore" "deps.edn" "shadow-cljs.edn"
    "docs/adr/0001-migrate-the-appview-from-typescript-to-clojurescript.edn"
-   "src/legal_entity/route.cljc"
-   "src/legal_entity/view.cljc"
-   "src/legal_entity/worker.cljs"
-   "test/legal_entity/route_test.cljc"
-   "scripts/smoke-worker.cljs"
-   "scripts/verify-docs-claims.cljs"]
+   "src/legal_entity/route.cljk"
+   "src/legal_entity/view.cljk"
+   "src/legal_entity/worker.cljk"
+   "test/legal_entity/route_test.cljk"
+   "scripts/smoke-worker.cljk"
+   "scripts/verify-docs-claims.cljk"]
 
   ;; 移行が撤去した 9 パス（288 行）。**名前で**残す —— byte 合計は
   ;; 「TypeScript と Svelte が消えた」を言えないが、この列挙は言える。
-  ;; scripts/verify-docs-claims.cljs がこの 9 件の不在を検査する。
+  ;; scripts/verify-docs-claims.cljk がこの 9 件の不在を検査する。
   :removed-by-migration
   ["wasm/etzhayyim-wasm-legal-entity-le9k4x2m/package.json"
    "wasm/etzhayyim-wasm-legal-entity-le9k4x2m/src/app.ts"
@@ -53,10 +53,10 @@
                     "kotoba/tsconfig.json" "kotoba/vitest.config.ts"]
             :files 7 :bytes 25274
             :why "AT PDS 上の登記レジストリ 9 関数。appview から参照されない別系統"}
-   :lg-clj {:paths ["lg-clj/bb.edn" "lg-clj/run_tests.clj"
-                    "lg-clj/src/lg_legal_entity/graphs/health.cljc"
-                    "lg-clj/src/lg_legal_entity/graphs/task.cljc"
-                    "lg-clj/src/lg_legal_entity/server.cljc"
-                    "lg-clj/test/lg_legal_entity/smoke_test.cljc"]
+   :lg-clj {:paths ["lg-clj/bb.edn" "lg-clj/run_tests.cljk"
+                    "lg-clj/src/lg_legal_entity/graphs/health.cljk"
+                    "lg-clj/src/lg_legal_entity/graphs/task.cljk"
+                    "lg-clj/src/lg_legal_entity/server.cljk"
+                    "lg-clj/test/lg_legal_entity/smoke_test.cljk"]
             :files 6 :bytes 14846
             :why "Python LangGraph サーバの Clojure 移植。17 StateGraph。appview から参照されない"}}}}
