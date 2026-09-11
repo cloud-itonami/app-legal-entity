@@ -10,7 +10,7 @@
 ;; TypeScript and Svelte are asserted ABSENT BY NAME, not merely absent from a byte
 ;; total.
 ;;
-;; Usage:  nbb scripts/verify-docs-claims.cljs [<dir>]     (<dir> FIRST, default ".")
+;; Usage:  nbb scripts/verify-docs-claims.cljk [<dir>]     (<dir> FIRST, default ".")
 ;;         ^ <dir> goes FIRST: this script takes the first non--- argument as the
 ;;           tree, so `... --min 10 .` would make "10" the path. Measured hazard.
 ;; Exit:   0 every claim holds · 1 a claim is false · 2 could not answer
@@ -65,11 +65,11 @@
    "kotoba/tsconfig.json" "95a429e51d6162cb7205b603f745e7604d93ffbb1ea6c346e5c6215a79ae541e"
    "kotoba/vitest.config.ts" "f82a551ef4da1c9cbf17985a3bee96eee450a3e4a46bff0d96c6150263121eff"
    "lg-clj/bb.edn" "849310f9e7619d12cdf2b1ab76796b4f1e434f8da3969eee92bb00efeba17ec3"
-   "lg-clj/run_tests.clj" "5602e4a9b702c8423603d8e1fa1ae3d962659d623add3b94e9410d45b449d43e"
-   "lg-clj/src/lg_legal_entity/graphs/health.cljc" "cc41d516383a1b146767bdf5dc52a49b4760f4ab5799ee0eb28a1751d210921a"
-   "lg-clj/src/lg_legal_entity/graphs/task.cljc" "768abf9bb711d6a81a3fb1850f876313295e727c9214a74853c33f54c8594243"
-   "lg-clj/src/lg_legal_entity/server.cljc" "b9b3aa1e9cd53d1cd3652d69d24c05b643eea63430683e388b0eac6011c33062"
-   "lg-clj/test/lg_legal_entity/smoke_test.cljc" "0e11a9606fc3e559611a4a17fc7ca82cd605aba15e19936dab24921bf88f9fc1"})
+   "lg-clj/run_tests.cljk" "5602e4a9b702c8423603d8e1fa1ae3d962659d623add3b94e9410d45b449d43e"
+   "lg-clj/src/lg_legal_entity/graphs/health.cljk" "cc41d516383a1b146767bdf5dc52a49b4760f4ab5799ee0eb28a1751d210921a"
+   "lg-clj/src/lg_legal_entity/graphs/task.cljk" "768abf9bb711d6a81a3fb1850f876313295e727c9214a74853c33f54c8594243"
+   "lg-clj/src/lg_legal_entity/server.cljk" "b9b3aa1e9cd53d1cd3652d69d24c05b643eea63430683e388b0eac6011c33062"
+   "lg-clj/test/lg_legal_entity/smoke_test.cljk" "0e11a9606fc3e559611a4a17fc7ca82cd605aba15e19936dab24921bf88f9fc1"})
 
 ;; Inherited files this repository still carries BYTE-IDENTICAL.
 ;;
@@ -247,7 +247,7 @@
       ;; route.cljc carries a copy (the Worker has no way to read the JSON-LD at
       ;; request time), so the copy is checked against the original here. Without
       ;; this the page could advertise NSIDs the descriptor never declared.
-      (let [r (slurp* "src/legal_entity/route.cljc")
+      (let [r (slurp* "src/legal_entity/route.cljk")
             decl (get-in kj ["triggers" "subscribeRepos" "collections"])]
         (if (or (nil? r) (nil? decl))
           (undet! "route.cljc or kotodama.jsonld unreadable")
@@ -265,7 +265,7 @@
     (let [w (some-> (slurp* (str APP "/wrangler.jsonc")) strip-jsonc)
           kj (try (js->clj (.parse js/JSON (slurp* (str APP "/kotodama.jsonld"))) :keywordize-keys false)
                   (catch :default _ nil))
-          r (slurp* "src/legal_entity/route.cljc")]
+          r (slurp* "src/legal_entity/route.cljk")]
       (if (or (nil? w) (nil? kj) (nil? r))
         (undet! "wrangler.jsonc, kotodama.jsonld or route.cljc unreadable")
         (let [from-wrangler (js->clj (.parse js/JSON (get-in (js->clj (.parse js/JSON w) :keywordize-keys false)
@@ -282,8 +282,8 @@
     ;; 5 capabilities. Asserted structurally (the view takes the data, the worker
     ;; passes the real values) and NOT by forbidding a substring: a check that a
     ;; docstring explaining the old defect can trip is a check about prose.
-    (let [v (slurp* "src/legal_entity/view.cljc")
-          w (slurp* "src/legal_entity/worker.cljs")]
+    (let [v (slurp* "src/legal_entity/view.cljk")
+          w (slurp* "src/legal_entity/worker.cljk")]
       (if (or (nil? v) (nil? w))
         (undet! "view.cljc or worker.cljs unreadable")
         (check! :page-renders-the-data true

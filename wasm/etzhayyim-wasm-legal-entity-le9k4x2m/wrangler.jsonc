@@ -1,6 +1,6 @@
 {
   "name": "kotodama-le9k4x2m",
-  // Compiled from src/legal_entity/worker.cljs by shadow-cljs (:target :esm).
+  // Compiled from src/legal_entity/worker.cljk by shadow-cljs (:target :esm).
   // The path is ../../dist/worker.js because the appview's DEPLOY unit stays here
   // (this directory) while the source and build config live at the repo root --
   // the repo holds three independent subtrees with three build roots, and this is

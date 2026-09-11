@@ -22,7 +22,7 @@ DNS を引けない（README §4-A）。
 git clone git@github.com:cloud-itonami/app-legal-entity.git
 cd app-legal-entity
 REPO=$PWD
-npx --yes nbb scripts/verify-docs-claims.cljs .
+npx --yes nbb scripts/verify-docs-claims.cljk .
 ```
 
 **実測**（末尾）:
@@ -236,7 +236,7 @@ cache を消して測り直すまで「隣の agent の backup を掴んだ」�
 ここが deploy されるものに触る唯一の検査である。
 
 ```bash
-cd "$REPO" && npx --yes nbb scripts/smoke-worker.cljs dist/worker.js
+cd "$REPO" && npx --yes nbb scripts/smoke-worker.cljk dist/worker.js
 ```
 
 **実測**（抜粋）:
@@ -325,7 +325,7 @@ superproject の deploy guard は `origin/main` を含む checkout からの dep
 ## A. `kotoba/` — TypeScript 登記レジストリ（**appview ではない。撤去していない**）
 
 移行はこのサブツリーを**触っていない**。7 ファイルすべて sha256 で固定してある
-（`scripts/verify-docs-claims.cljs` の `kept`）ので、1 バイト動けば §1 が落ちる。
+（`scripts/verify-docs-claims.cljk` の `kept`）ので、1 バイト動けば §1 が落ちる。
 
 ### A-1. install
 
