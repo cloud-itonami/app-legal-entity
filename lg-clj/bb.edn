@@ -4,7 +4,7 @@
  ;;   src   — lg-legal-entity.* namespaces (graphs + server)
  ;;   test  — lg-legal-entity.smoke-test (clojure.test)
  ;;
- ;; Run the suite:  bb test   (or:  bb run_tests.clj)
+ ;; Run the suite:  bb test   (or:  kbb run_tests.cljk)
  :paths ["src" "test"]
  :deps {
         ;; kotoba.lang.text, not clojure.string. Pinned as an explicit floor:

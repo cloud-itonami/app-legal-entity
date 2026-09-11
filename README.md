@@ -8,7 +8,7 @@
 |---|---|---|
 | **`wasm/…-le9k4x2m/` + `src/`** | **appview**（Cloudflare Worker）。XRPC を MCP router に中継する薄い edge。**2026-08-18 に TypeScript/Svelte から ClojureScript へ移行**（[ADR-0001](docs/adr/0001-migrate-the-appview-from-typescript-to-clojurescript.edn)） | **動く**（8 tests / 69 assertions、build 0 warnings、smoke 47 checks、workerd 実走） |
 | **`kotoba/`** | TypeScript。`@etzhayyim/sdk` の AT PDS レコードの上に建てた**登記レジストリ 9 関数**（entity / filing / ownership edge / coverage） | **動く**（typecheck exit 0、vitest **4 passed**。2026-08-17 実測） |
-| **`lg-clj/`** | Clojure。Python LangGraph サーバの移植で、**17 個の StateGraph**（health + 16 collector）とその dispatch | **動く**（`bb test` exit 0、**15 tests / 58 assertions**。2026-08-17 実測） |
+| **`lg-clj/`** | Clojure。Python LangGraph サーバの移植で、**17 個の StateGraph**（health + 16 collector）とその dispatch | **動く**（`kbb -M:test` exit 0、**15 tests / 58 assertions**。2026-08-17 実測） |
 
 **そして [`CLAUDE.md`](CLAUDE.md) は、この 3 つのどれでもない 4 つ目を記述している。**
 あちらが書くのは RisingWave に 27 列の `vertex_legal_entity` を投影する
@@ -243,7 +243,7 @@ TypeScript が library のふりをして戻る）ことも、黙って腐るこ
 ## 8. 検証
 
 ```bash
-npx --yes nbb scripts/verify-docs-claims.cljk .   # <dir> は先頭に置く
+npx --yes kbb --backend sci scripts/verify-docs-claims.cljk .   # <dir> は先頭に置く
 ```
 
 exit 0 = 全一致 / 1 = 食い違い / **2 = 判定できなかった**（0 と区別する）。

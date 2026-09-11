@@ -20,7 +20,7 @@ shadow-cljs `:target :esm` → `dist/worker.js`。
 | 項目 | 値 |
 |---|---|
 | Language | ClojureScript（判断は `.cljc`、Request/Response に触るのは `worker.cljs` だけ） |
-| Build | `shadow-cljs release worker` → `dist/worker.js`（`wasm/…/wrangler.jsonc` の `main` が指す先） |
+| Build | `amu compile --target wasm32-browser worker` → `dist/worker.js`（`wasm/…/wrangler.jsonc` の `main` が指す先） |
 | Architecture | 薄い edge。`/xrpc/:nsid` を MCP router へ中継するだけで、業務ロジックは持たない |
 
 **以下 3 行が記述するのは、この repo に実装ファイルが 1 つも無い
