@@ -95,7 +95,7 @@ LangGraph サーバの移植で 17 の StateGraph を持つ。**どちらも app
 
 どちらも bundle に入らないが、この移行が使う基準で「死んで」はいない ——
 `kotoba/` の固定依存 2 本は public repo の commit 固定で解決し、テストは通る
-（旧 operator-quickstart §A が実走記録を持つ）。`lg-clj/` も `bb test` で
+（旧 operator-quickstart §A が実走記録を持つ）。`lg-clj/` も `kbb -M:test` で
 15 tests / 58 assertions が通る。**消すのは移行ではなく破壊**なので残した。
 
 残した 13 ファイルは `migration.edn` の `:kept-not-the-appview` に登録し、
@@ -199,7 +199,7 @@ app-air-cargo は `/xrpc` も 400 にする。SvelteKit の `[...path]` が 0 �
 - `legal-entity.route-test`: **8 tests / 69 assertions、0 failures**（nbb、ビルド不要）
 - ページ描画 → design-quality **100.00**（gate 95、PASS）。`--extra-axes` でも
   **12 軸すべて 100.00**
-- `shadow-cljs release worker`（resource guard 経由）: **55 files / 12 compiled /
+- `amu compile --target wasm32-browser worker`（resource guard 経由）: **55 files / 12 compiled /
   0 warnings / 8.61s**、`dist/worker.js` 256,241 バイト
 - `scripts/smoke-worker.cljk`: **47 checks 全 PASS**、exit 0
 - `scripts/verify-docs-claims.cljk`: **40 claims 全 PASS**、exit 0

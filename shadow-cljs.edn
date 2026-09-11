@@ -9,7 +9,7 @@
 ;; referenced by no wrangler config at all.
 ;;
 ;; :warnings-as-errors is not decoration. shadow treats an undeclared or renamed
-;; var as a WARNING, so `shadow-cljs release worker` exits 0 while writing a bundle
+;; var as a WARNING, so `amu compile --target wasm32-browser worker` exits 0 while writing a bundle
 ;; that misbehaves on its first request. "The build succeeded" is therefore not a
 ;; check at all -- it cannot fail. Measured in cloud-itonami/app-cowork on
 ;; 2026-08-18, landed in app-lo / app-ongakuka / app-air-cargo, and demonstrated in

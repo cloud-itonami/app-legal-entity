@@ -1,6 +1,6 @@
 ;; lg-legal-entity clj-port test runner (repo rule: run_tests.clj, NOT .sh).
 ;;
-;;   bb run_tests.clj      (from 60-apps/etzhayyim-project-legal-entity/lg-clj/)
+;;   kbb run_tests.cljk      (from 60-apps/etzhayyim-project-legal-entity/lg-clj/)
 ;;   bb test               (bb.edn task alias)
 ;;
 ;; Exits non-zero if any test fails or errors.

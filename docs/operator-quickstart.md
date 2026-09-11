@@ -22,7 +22,7 @@ DNS を引けない（README §4-A）。
 git clone git@github.com:cloud-itonami/app-legal-entity.git
 cd app-legal-entity
 REPO=$PWD
-npx --yes nbb scripts/verify-docs-claims.cljk .
+npx --yes kbb --backend sci scripts/verify-docs-claims.cljk .
 ```
 
 **実測**（末尾）:
@@ -60,7 +60,7 @@ cat > /tmp/run.cljs <<'EOF'
 (require '[cljs.test :refer [run-tests]] 'legal-entity.route-test)
 (run-tests 'legal-entity.route-test)
 EOF
-npx --yes nbb --classpath "$CP" /tmp/run.cljs
+npx --yes kbb --backend sci --classpath "$CP" /tmp/run.cljs
 ```
 
 **実測**:
@@ -106,9 +106,9 @@ cat > /tmp/render.cljs <<'EOF'
                   :actor route/actor-did}))
   (println "ok"))
 EOF
-DDS="$K/jp-go-digital-design-system" npx --yes nbb --classpath "$CP" /tmp/render.cljs
+DDS="$K/jp-go-digital-design-system" npx --yes kbb --backend sci --classpath "$CP" /tmp/render.cljs
 
-cd $K/design-quality && npx --yes nbb -m design-quality.cli score /tmp/le-page.html --min 95
+cd $K/design-quality && npx --yes kbb --backend sci -m design-quality.cli score /tmp/le-page.html --min 95
 ```
 
 **実測**:
@@ -158,7 +158,7 @@ resource governor）。直接叩かず、必ず guard 経由で:
 ```bash
 cd "$REPO"
 node ~/github/com-junkawasaki/scripts/resource-guard.mjs run build -- \
-  npx --yes shadow-cljs release worker
+  npx --yes amu compile --target wasm32-browser worker
 ls -la dist/worker.js
 ```
 
@@ -198,7 +198,7 @@ sha256: 46bd01400aa260a64ebae8beba55be94c66ba423eb03e0838efa5784fc66613a
 ```bash
 rm -rf .shadow-cljs dist
 node ~/github/com-junkawasaki/scripts/resource-guard.mjs run build -- \
-  npx --yes shadow-cljs release worker
+  npx --yes amu compile --target wasm32-browser worker
 ```
 
 **shadow-cljs の `:esm` release 出力は、cold build では決定論的だが、
@@ -236,7 +236,7 @@ cache を消して測り直すまで「隣の agent の backup を掴んだ」�
 ここが deploy されるものに触る唯一の検査である。
 
 ```bash
-cd "$REPO" && npx --yes nbb scripts/smoke-worker.cljk dist/worker.js
+cd "$REPO" && npx --yes kbb --backend sci scripts/smoke-worker.cljk dist/worker.js
 ```
 
 **実測**（抜粋）:
@@ -380,7 +380,7 @@ npm test                 # vitest run
 こちらも移行は触っていない。6 ファイルすべて sha256 で固定してある。
 
 ```bash
-cd lg-clj && bb test
+cd lg-clj && kbb -M:test
 ```
 
 **実測（2026-08-17）**:
