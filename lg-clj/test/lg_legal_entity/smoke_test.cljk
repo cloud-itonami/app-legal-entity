@@ -3,7 +3,7 @@
   Python `tests/test_smoke.py`, plus node-behaviour tests the original could not
   run offline (collectors are injectable here, so the dispatch + single-node
   graph logic verify under bb with stubs)."
-  (:require [clojure.test :refer [deftest is]]
+  (:require [kotoba.test :refer [deftest is]]
             [clojure.set :as set]
             [langgraph.graph :as g]
             [lg-legal-entity.server :as server]
