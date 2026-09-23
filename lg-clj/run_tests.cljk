@@ -4,7 +4,7 @@
 ;;   bb test               (bb.edn task alias)
 ;;
 ;; Exits non-zero if any test fails or errors.
-(require '[clojure.test :as t]
+(require '[kotoba.test :as t]
          'lg-legal-entity.smoke-test)
 
 (let [{:keys [fail error]} (t/run-tests 'lg-legal-entity.smoke-test)]
