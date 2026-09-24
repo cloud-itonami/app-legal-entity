@@ -4,7 +4,7 @@
   run offline (collectors are injectable here, so the dispatch + single-node
   graph logic verify under bb with stubs)."
   (:require [kotoba.test :refer [deftest is]]
-            [clojure.set :as set]
+            [kotoba.lang.coll :as set]
             [langgraph.graph :as g]
             [lg-legal-entity.server :as server]
             [lg-legal-entity.graphs.health :as health]
