@@ -7,7 +7,7 @@
 計測に使った環境: macOS（darwin 25.3.0, arm64）/ **node v26.3.0** / **npm 11.16.0** /
 **nbb v1.4.208** / **babashka v1.12.218**（`lg-clj` のみ）。
 
-この repo に**デプロイ手順は無い**（§7）。`CLAUDE.md` が書くデプロイ先は 4 ホストとも
+この repo に**デプロイ手順は無い**（§7）。`AGENTS.md` が書くデプロイ先は 4 ホストとも
 DNS を引けない（README §4-A）。
 
 **この repo は 3 つの独立したサブツリーを持ち、それぞれ別のビルド根を持つ**
@@ -152,7 +152,7 @@ gate: aggregate 96.63 >= min 95.00 -> PASS
 
 ## 4. bundle をビルドする
 
-**高負荷ビルドは同時 1 本に制限されている**（superproject `CLAUDE.md` の
+**高負荷ビルドは同時 1 本に制限されている**（superproject `AGENTS.md` の
 resource governor）。直接叩かず、必ず guard 経由で:
 
 ```bash

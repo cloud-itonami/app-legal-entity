@@ -52,7 +52,7 @@
             ↓ shadow-cljs :target :esm
     dist/worker.js                 wasm/…/wrangler.jsonc の main が指すもの
 
-superproject CLAUDE.md の runtime 順序は kotoba wasm > clojurewasm >
+superproject AGENTS.md の runtime 順序は kotoba wasm > clojurewasm >
 ClojureScript > nbb で、TypeScript はそこに無い。入口を .kotoba ではなく cljs に
 置くのは ADR-2606290000 の判断（kotoba の ingress capability は :native-aot /
 :wasm-aot とも pending）。判断を .cljc に切り出してあるのは、ブラウザもビルドも
@@ -292,7 +292,7 @@ smoke は incremental 版・cold 版のどちらでも 47 件全 PASS だった�
 - **repo 全体の TypeScript は 8 → 5**。減った 3 本は appview のもので、
   残る 5 本は `kotoba/`。**『全部消す』ではない**ことをここに残す。
 - 継承した 2 ファイルは 1 バイトも変わっていない（sha256 を検証器に固定）。
-  `wrangler.jsonc` / `migration.edn` / `CLAUDE.md` /
+  `wrangler.jsonc` / `migration.edn` / `AGENTS.md` /
   `SUBSTRATE-PORT-PENDING.md` は**意図的に**変更し、内容で検査する。
 - ホストは相変わらず解決しない。移行はそれを直さない。deploy するか retire
   するかは別の決定。**この移行では deploy していない**（`wrangler dev --local`
