@@ -6,8 +6,8 @@
 > （`docs/adr/0001`）。これにより下記のうち **§1 と §2 と §5 の一部は「移植」ではなく
 > 「撤去」で解決した** —— 対象ファイル（`src/app.ts`、`svelte/` 一式、
 > appview の `package.json`）は tree に存在しない。§3 §4 は元から N/A ないし完了。
-> **§6（CLAUDE.md が dispatcher 側の書き込み経路を記述している問題）は残っている**
-> が、`CLAUDE.md` の Runtime 節には訂正を入れた。
+> **§6（AGENTS.md が dispatcher 側の書き込み経路を記述している問題）は残っている**
+> が、`AGENTS.md` の Runtime 節には訂正を入れた。
 >
 > 残る本体は変わらず「dispatcher 側の書き換え」で、それはこの repo の外にある。
 
@@ -39,7 +39,7 @@
    無く、install できなかった。旧 README §3-C）。cljs の依存は `deps.edn` に在り、
    npm package 名を持たない。WASM bundle slug `le9k4x2m` stays.
    **`kotoba/package.json` の名前は別件**（そちらは `@etzhayyim/legal-entity-kotoba`）。
-6. CLAUDE.md `# etzhayyim-project-legal-entity` still describes the etzhayyim-side write path (`createKyselyDb()` → `vertex_legal_entity` → 19 country collectors → RisingWave). The thin edge is now substrate-clean; the dispatcher-side rewrite is the outstanding work (separate ADR needed).
+6. AGENTS.md `# etzhayyim-project-legal-entity` still describes the etzhayyim-side write path (`createKyselyDb()` → `vertex_legal_entity` → 19 country collectors → RisingWave). The thin edge is now substrate-clean; the dispatcher-side rewrite is the outstanding work (separate ADR needed).
 
 ## Cross-links
 

@@ -78,7 +78,7 @@
 ;; one stay distinguishable:
 ;;   wrangler.jsonc            main / assets / rules / flags / APP_FRAMEWORK
 ;;   migration.edn             now registers the additions, removals and kept set
-;;   CLAUDE.md                 its Runtime table claimed TypeScript + src/app.ts
+;;   AGENTS.md                 its Runtime table claimed TypeScript + src/app.ts
 ;;   SUBSTRATE-PORT-PENDING.md its item 2 named a file the migration deleted
 (def preserved
   {"README.edn" "ce0766ffd31f645af3d4967127b59b98760cf44ceb04012b76bf401cace1cc27"
@@ -150,7 +150,7 @@
                                   (contains? preserved %)
                                   (contains? kept %)
                                   ;; the 3 inherited files changed on purpose
-                                  (contains? #{"CLAUDE.md" "SUBSTRATE-PORT-PENDING.md"
+                                  (contains? #{"AGENTS.md" "SUBSTRATE-PORT-PENDING.md"
                                                (str APP "/wrangler.jsonc")}
                                              %))
                              files)))
@@ -303,11 +303,11 @@
                        ["README.md" "docs/operator-quickstart.md"
                         "docs/adr/0001-migrate-the-appview-from-typescript-to-clojurescript.edn"])))
 
-    ;; CLAUDE.md no longer claims a TypeScript runtime whose business logic is
+    ;; AGENTS.md no longer claims a TypeScript runtime whose business logic is
     ;; src/app.ts -- a file this migration deleted.
-    (let [c (slurp* "CLAUDE.md")]
+    (let [c (slurp* "AGENTS.md")]
       (if (nil? c)
-        (undet! "CLAUDE.md unreadable")
+        (undet! "AGENTS.md unreadable")
         (check! :claude-md-does-not-claim-a-typescript-runtime true
                 (and (not (str/includes? c "| Language | TypeScript"))
                      (not (str/includes? c "app.ts が直接 wrangler entrypoint"))

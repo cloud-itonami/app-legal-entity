@@ -10,10 +10,10 @@
 | **`kotoba/`** | TypeScript。`@etzhayyim/sdk` の AT PDS レコードの上に建てた**登記レジストリ 9 関数**（entity / filing / ownership edge / coverage） | **動く**（typecheck exit 0、vitest **4 passed**。2026-08-17 実測） |
 | **`lg-clj/`** | Clojure。Python LangGraph サーバの移植で、**17 個の StateGraph**（health + 16 collector）とその dispatch | **動く**（`kbb -M:test` exit 0、**15 tests / 58 assertions**。2026-08-17 実測） |
 
-**そして [`CLAUDE.md`](CLAUDE.md) は、この 3 つのどれでもない 4 つ目を記述している。**
+**そして [`AGENTS.md`](AGENTS.md) は、この 3 つのどれでもない 4 つ目を記述している。**
 あちらが書くのは RisingWave に 27 列の `vertex_legal_entity` を投影する
 **デプロイ済みの dispatcher 側システム**（19 コレクタ・GLEIF 3.0M 件）で、
-**その実装ファイルはここに 1 つも無い**。`CLAUDE.md` を**設計の正本**として読むのは
+**その実装ファイルはここに 1 つも無い**。`AGENTS.md` を**設計の正本**として読むのは
 正しい。**この repo の中身の説明として読むと必ず間違える。**
 （移行で偽になった `## Runtime` 節には 2026-08-18 に訂正を入れた。）
 
@@ -123,23 +123,23 @@ CSS の有無と無関係に現れる。CSS を外して再ビルドすると後
 
 | | collector の数 | 登記 CRUD | 備考 |
 |---|---|---|---|
-| `CLAUDE.md`（4 つ目のシステム） | **19**（`collect*` コマンド） | 無し（`stats` / `search` のみ） | RisingWave 投影あり |
+| `AGENTS.md`（4 つ目のシステム） | **19**（`collect*` コマンド） | 無し（`stats` / `search` のみ） | RisingWave 投影あり |
 | `lg-clj/` | **16**（`registryCollect*` 12 + gleif 2 + edgar 2） | 無し | 投影なし・handler 未配線 |
 | `kotoba/` | **0** | **9 関数** | AT PDS レコードのみ |
 | appview（`src/`） | **0** | 無し | 中継のみ。業務ロジックを持たない |
 
 `lg-clj` に無い 6 か国（**Bra / Bel / Aus / Can / Zaf** と bulk 系）は、
-`CLAUDE.md` 側で "Bulk-required LangServer contract" ないし "Unsupported" と
+`AGENTS.md` 側で "Bulk-required LangServer contract" ないし "Unsupported" と
 書かれているものと**一致する** —— 移植漏れではなく意図的に落とした 5 件と
 `collectGlobal`（GLEIF、`gleifFetchPages` として存在）である。
 
 **一方 `kotoba/` と他の 2 つの間には対応が無い。** `kotoba/` は「収集する」実装
 ではなく「登記簿を持つ」実装で、`registerEntity` / `addFiling` /
-`recordOwnership` は `CLAUDE.md` にも `lg-clj` にも対応するコマンドが無い。
+`recordOwnership` は `AGENTS.md` にも `lg-clj` にも対応するコマンドが無い。
 
 ## 4. 測って分かった欠陥（2026-08-17〜18）
 
-### A. `CLAUDE.md` が名指しするホストは 4 つとも DNS を引けない（移行では直らない）
+### A. `AGENTS.md` が名指しするホストは 4 つとも DNS を引けない（移行では直らない）
 
 | ホスト | 役割 | DNS |
 |---|---|---|
@@ -199,7 +199,7 @@ repo 直下に来たので、この repo の substrate と test は初めて 0 �
   `wasm/…/kotodama.jsonld`、計 2,373 バイト）—— sha256 を検証器に固定
 - **意図的に変更した** 4 ファイル: `wasm/…/wrangler.jsonc`（`main` の付け替え、
   `assets` と `rules` の撤去、`compatibility_flags` の撤去、`APP_FRAMEWORK` の更新）/
-  `migration.edn`（追加・撤去・kept を登録）/ `CLAUDE.md`（Runtime 節）/
+  `migration.edn`（追加・撤去・kept を登録）/ `AGENTS.md`（Runtime 節）/
   `SUBSTRATE-PORT-PENDING.md`。**内容で検査する** —— 意図的な変更と careless な
   変更を区別するため
 - **撤去した 9 ファイル**（288 行）は `:removed-by-migration` に名指しで登録。
@@ -227,7 +227,7 @@ TypeScript が library のふりをして戻る）ことも、黙って腐るこ
 
 ## 7. まだ直していないこと
 
-- **A（DNS）** — 生きているホストがどれなのかを知らない。`CLAUDE.md` の
+- **A（DNS）** — 生きているホストがどれなのかを知らない。`AGENTS.md` の
   デプロイ記述を消すべきか別のホスト名に直すべきかは、この repo の外の事実に依存する。
   **この移行では deploy していない**（`wrangler dev --local` までで止めた）。
 - **B（改名記録）** — 旧名を復元するには `etzhayyim/root` rev `e5654f08` を読む必要がある。
